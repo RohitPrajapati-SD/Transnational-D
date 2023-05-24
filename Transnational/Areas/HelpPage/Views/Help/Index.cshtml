@@ -1,0 +1,57 @@
+using System.Web.Http
+using System.Web.Http.Controllers
+using System.Web.Http.Description
+using System.Collections.ObjectModel
+using Transnational.Areas.HelpPage.Models
+ Collection<ApiDescription>
+
+{
+    ViewBag.Title = "ASP.NET Web API Help Page";
+
+    // Group APIs by controller
+    ILookup<HttpControllerDescriptor, ApiDescription> apiGroups = Model.ToLookup(api => api.ActionDescriptor.ControllerDescriptor);
+}
+
+<link type="text/css" href="~/Areas/HelpPage/HelpPage.css" rel="stylesheet" />
+<header class="help-page">
+    <div class="content-wrapper">
+        <div class="float-left">
+            <h1>ViewBag.Title</h1>
+        </div>
+    </div>
+</header>
+<div id="body" class="help-page">
+    <section class="featured">
+        <div class="content-wrapper">
+            <h2>Introduction</h2>
+            <p>
+                Provide a general description of your APIs here.
+            </p>
+        </div>
+    </section>
+    <section class="content-wrapper main-content clear-fix">
+        foreach (var group in apiGroups)
+        {
+            Html.DisplayFor(m => group, "ApiGroup")
+        }
+    </section>
+</div>
+@*Dropdownhelper.Models.Country
+{
+    ViewBag.Title = "Index";
+}
+<h2>
+    Creating a dropdown list of Country
+</h2>
+using (Html.BeginForm())
+{
+<label>
+    Select City
+</label>
+    Html.DropDownList("StateName", (IEnumerable<SelectListItem>
+    )ViewBag.statelist, "---Select---");
+    <p>
+        <input type="Submit" value="Submit" />
+    </p>
+    }*@
+

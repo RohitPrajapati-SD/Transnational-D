@@ -1,0 +1,81 @@
+﻿<head>
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    @*<script src="~/Scripts/PageScript/index.js"></script>*@
+    @*<script src="jquery-1.7.1.js" type="text/javascript"></script>*@
+    <script type="text/javascript">
+
+
+        function AddEmp() {
+
+            var Ord = {};
+            Ord.FirstName = $("#txtFirstName").val();
+            Ord.LastName = $("#txtLastName").val();
+
+
+
+            $.ajax({
+                url: "/api/Order/AddEmployees",
+                type: "POST",
+                contentType: "application/json;charset=utf-8",
+                data: JSON.stringify(Ord),
+                dataType: "json",
+                success: function (response) {
+
+                    alert(response);
+
+                },
+
+                error: function (x, e) {
+                    alert('Failed');
+                    alert(x.responseText);
+                    alert(x.status);
+
+                }
+            });
+        }
+
+        $(document).ready(function () {
+            $("#btnSave").click(function (e) {
+
+                AddEmp();
+                e.preventDefault();
+            });
+        });
+
+    </script>
+</head>
+
+
+<form>
+    <div class="container">
+        <br /><br />
+        <table>
+            <tr>
+                <td>
+                    SpecialInstructions
+                </td>
+                <td>
+                    <asp:TextBox runat="server" ID="txtFirstName" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    CreatedByType
+                </td>
+                <td>
+                    <asp:TextBox runat="server" ID="txtLastName" />
+                </td>
+            </tr>
+
+            <tr>
+                <td></td>
+                <td>
+                    <asp:Button Text="Save" runat="server" ID="btnSave" />
+                </td>
+            </tr>
+        </table>
+        <br />
+    </div>
+
+</form>
+
