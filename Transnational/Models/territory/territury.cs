@@ -15,6 +15,7 @@ namespace Transnational.Models.territory
         public string DDLCode { get; set; }
 
     }
+
     public class Address
     {
         public int ZoneId { get; set; }

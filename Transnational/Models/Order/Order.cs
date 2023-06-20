@@ -15,9 +15,6 @@ namespace Transnational.Models.Order
         public OrderDeliveryAddress OrderDeliveryAddress { get; set; }
         public OrderAddress OrderAddress { get; set; }
         public GetOrderNo GetOrderNoObj { get; set; }
-
-
-
         public Nullable<int> OStatus { get; set; } 
         public Nullable<int> CompanyId { get; set; }
         public string CreatedByType { get; set; }
@@ -70,7 +67,6 @@ namespace Transnational.Models.Order
         public List<OrderEmail> OrderEmailObjList { get; set; }
         public List<OrderSms> OrderSmsObjList { get; set; }
         public List<InvoiceVolume> InvoiceVolumeObjList { get; set; }
-
         public List<AddtoMyCart> AddtoMyCartObjList { get; set; }
         public string CouponCode { get; set; }
         public float CouponAmount { get; set; }
@@ -81,7 +77,9 @@ namespace Transnational.Models.Order
         public Nullable<System.DateTime> DeliveryDate_Return { get; set; }
         public string PickupTime_Return { get; set; }
         public string DeliveryTime_Return { get; set; }
-        public Boolean rtrnTrip { get; set; }
+        public string  rtrnTrip { get; set; }
+        
+       
 
       //  public int ReturnOrderId { get; set; }
 
@@ -95,9 +93,8 @@ namespace Transnational.Models.Order
         public string CreatedByType { get; set; }
         public string Status { get; set; }
         public string RecentOrder { get; set; }
-        
+     
         public List<OrderStatus> OrderStatusObjList { get; set; }
-
     }
 
     public class AllOrders
@@ -128,11 +125,6 @@ namespace Transnational.Models.Order
         public double DeliveryOptionFees { get; set; }
         public Double GrandTotel { get; set; }
         public Double EstimatedCost { get; set; }
-
-
-
-
-
     }
     public class GetOrderByOrderIdConduction
     {

@@ -38,18 +38,17 @@ namespace Transnational.Controllers.CreateOrder
                 int InvoiceId = 0 ;int ReturnOrderId = 0;
 
                 InvoiceId = OrderRepositoryObj.AddNewOrder(OrderObj, OrderObj.OrderDeliveryAddress, OrderObj.OrderAddress);
-
+                result = InvoiceId;
 
                 if (InvoiceId  > 0)
 
                 {
-                    if (OrderObj.rtrnTrip == true )
+                    if (OrderObj.rtrnTrip.ToLower () == "true")
                     {
                         // created mew Order , with reversed address
                          ReturnOrderId = OrderRepositoryObj.AddNewOrder_Return(OrderObj, OrderObj.OrderDeliveryAddress, OrderObj.OrderAddress, InvoiceId);
-
-                        
                     }
+                 
                     response = response.Create(true, RespMessage.FormatMessage(RespMessage.OrderCreate), result);
                     responseIHttpActionResult = new Converter().ApiResponseMessage<Object>(response, HttpStatusCode.OK);
                 }
@@ -233,7 +232,7 @@ namespace Transnational.Controllers.CreateOrder
             return responseIHttpActionResult;
         }
 
-        //--------------------------------------UpdateAPI----------------------------------------------//
+                                     //--------------------------------------UpdateAPI----------------------------------------------//
 
         [System.Web.Http.Route("api/Order/UpdateInvoiceStatus")]
         [System.Web.Http.HttpPut]
@@ -297,10 +296,7 @@ namespace Transnational.Controllers.CreateOrder
                     response = response.Create(false, RespMessage.FormatMessage(RespMessage.Fail), result);
                     responseIHttpActionResult = new Converter().ApiResponseMessage<Object>(response, HttpStatusCode.OK);
                 }
-
             }
-
-
             catch (Exception ex)
             {
                 response = response.Create(false, RespMessage.ServerError, result);
@@ -335,7 +331,6 @@ namespace Transnational.Controllers.CreateOrder
                             Qty = (Double)dr["Qty"],
                             ServiceName = (string)dr["ServiceName"],
                             ServiceImage = (string)dr["ServiceImage"],
-
                         };
                         OrderProductObj.Add(OrderProductObjItem);
                     }
@@ -359,8 +354,6 @@ namespace Transnational.Controllers.CreateOrder
             }
             return responseIHttpActionResult;
         }
-
-
         [System.Web.Http.Route("api/Order/GetOrderVolumeDetels")]
         [System.Web.Http.HttpPost]
         [ResponseType(typeof(ResponseStatus<List<Response>>))]
@@ -431,10 +424,6 @@ namespace Transnational.Controllers.CreateOrder
 
                     response = response.Create(true, "Email Sent Successfully", 1);
                     responseIHttpActionResult = new Converter().ApiResponseMessage<Object>(response, HttpStatusCode.OK);
-
-
-                
-
             }
 
             catch (Exception ex)

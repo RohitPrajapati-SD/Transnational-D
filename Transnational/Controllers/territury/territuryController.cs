@@ -54,8 +54,6 @@ namespace Transnational.Controllers.territury
                             CountryId = (int)dr["CountryId"],
                             CountryName = (string)dr["CountryName"],
                             DDLCode = (string)dr["DDLCode"],
-
-
                         };
                         Countrys.Add(CountriesobjItem);
                     }

@@ -139,9 +139,10 @@ namespace Transnational.Models.Contact
     //---------------------------------------------------------InsertContactRegistration-------------------------------------------//---
     public class ContactRegistration
     {
-
         public string CustomerId { set; get; }
         public int CountryId { set; get; }
+        public string DDLCode { set; get; }
+
         public int ContactId { set; get; }
         public string Mobile { set; get; }
         public string Email { set; get; }
@@ -151,6 +152,13 @@ namespace Transnational.Models.Contact
         public InsertLogin InsertLoginObj { get; set; }
 
     }
+
+    public class DbName
+    {
+        public string dbName { get; set; }
+
+    }
+
     public class InsertLogin
     {
 

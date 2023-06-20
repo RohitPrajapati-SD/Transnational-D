@@ -536,21 +536,50 @@ namespace Transnational.Repository.OTPRepository
 
             Security SecurityObj = new Security();
             DbConnections conobj = new DbConnections();
-            string db = "";
-            if (ContactRegistrationObj.CountryId == 6)
-            {
-                //db = "Teamwork-SG-v2UAT";
-                db = "Teamwork_CRM_UAT";
-            }
-            else if (ContactRegistrationObj.CountryId == 1)
-            {
-                db = "Teamwork-SG-v2UAT1";
-            }
+            //string db = "";
+            //if (ContactRegistrationObj.CountryId == 6)
+            //{
+            //    //db = "Teamwork-SG-v2UAT";
+            //    db = "Teamwork_CRM_UAT";
+            //}
+            //else if (ContactRegistrationObj.CountryId == 1)
+            //{
+            //    db = "Teamwork-SG-v2UAT1";
+            //}
 
-            else if (ContactRegistrationObj.CountryId == 75)
+            //else if (ContactRegistrationObj.CountryId == 75)
+            //{
+            //   // db = "Teamwork-SG-v2UAT";
+            //    db = "Teamwork_CRM_UAT";
+            //}
+
+
+
+             string db = "";
+           var con1 = conobj.connection("trConnection");
+
+            DataSet ds = new DataSet();
+            SqlCommand com1 = new SqlCommand("[spGetDBNameByDDLCode]", con1);
+            com1.CommandType = CommandType.StoredProcedure;
+            com1.Parameters.AddWithValue("@DDLCode", ContactRegistrationObj.DDLCode);
+            //com.Parameters.AddWithValue("@LanguageId", Countriesobj.@LanguageId);
+            using (SqlDataAdapter da = new SqlDataAdapter(com1))
             {
-               // db = "Teamwork-SG-v2UAT";
-                db = "Teamwork_CRM_UAT";
+                con1.Open();
+                da.Fill(ds);
+                con1.Close();
+            }
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    var DBNAMEObjItem = new DbName()
+                    {
+                        dbName  = (string)dr["dbName"],
+                    };
+                    db = (string)dr["dbName"];
+                }
+             
             }
 
             var con = conobj.connection(db);
@@ -627,9 +656,6 @@ namespace Transnational.Repository.OTPRepository
 
                     return false;
                 }
-
-
-
 
             }
 

@@ -89,8 +89,6 @@ namespace Transnational.Repository.CRM
 
             DbConnections conobj = new DbConnections();
             var con = conobj.connection(CallbackRequestObj.CD);
-
-
             SqlCommand com = new SqlCommand("[spInsertCallbackRequest]", con);
             com.CommandType = CommandType.StoredProcedure;
             com.Parameters.AddWithValue("@EnquiryTypeId", (CallbackRequestObj.EnquiryTypeId));
@@ -154,7 +152,6 @@ namespace Transnational.Repository.CRM
         }
         public DataSet GetScreenImage(ScreenImageConduction ScreenImageObj)
         {
-
             DataSet ds = new DataSet();
 
             CommonFuns commnfun = new CommonFuns();
@@ -341,7 +338,7 @@ namespace Transnational.Repository.CRM
             var con = conobj.connection(UserDeviceObj.CD);
             SqlCommand com = new SqlCommand("spDeleteUserDevice", con);
             com.CommandType = CommandType.StoredProcedure;
-           // com.Parameters.AddWithValue("@EmailId", UserDeviceObj.EmailId);
+            // com.Parameters.AddWithValue("@EmailId", UserDeviceObj.EmailId);
             com.Parameters.AddWithValue("@DeviceId", UserDeviceObj.DeviceId);
             //com.Parameters.AddWithValue("@ContactId", UserDeviceObj.ContactId);
 
@@ -365,7 +362,7 @@ namespace Transnational.Repository.CRM
 
             }
         }
-    
+
         public DataTable GetStatusMaster(StatusMaster StatusMasterObj)
         {
 
@@ -376,7 +373,7 @@ namespace Transnational.Repository.CRM
             DataTable dt = new DataTable("DataTable");
             dt.Columns.Add(new DataColumn("OrderStatusId", typeof(int)));
             dt.Columns.Add(new DataColumn("OrderStatus", typeof(string)));
-           
+
             SqlCommand com = new SqlCommand("[spGetStatusMaster]", con);
             com.CommandType = CommandType.StoredProcedure;
             //com.Parameters.AddWithValue("@FAQId", 0);
@@ -412,6 +409,9 @@ namespace Transnational.Repository.CRM
             SqlCommand com = new SqlCommand("[spGetCouponCodeDetail]", con);
             com.CommandType = CommandType.StoredProcedure;
             com.Parameters.AddWithValue("@CouponCode", CouponMasterParameterObj.CouponCode);
+
+
+
             //com.Parameters.AddWithValue("@FAQId", 0);
             using (SqlDataAdapter da = new SqlDataAdapter(com))
             {
@@ -435,6 +435,23 @@ namespace Transnational.Repository.CRM
                     return null;
                 }
             }
+        }
+        //--------------------------------------------------GetAllCouponList---------------------------------------------------//---------
+        public DataSet GetAllCouponList(CouponlistDetail CouponlistDetailObj)
+        {
+            DbConnections conobj = new DbConnections();
+            var con = conobj.connection(CouponlistDetailObj.CD);
+            DataSet ds = new DataSet();
+            SqlCommand com = new SqlCommand("[spGetAllCouponList]", con);
+            com.CommandType = CommandType.StoredProcedure;
+            //com.Parameters.AddWithValue("@LanguageId", Countriesobj.@LanguageId);
+            using (SqlDataAdapter da = new SqlDataAdapter(com))
+            {
+                con.Open();
+                da.Fill(ds);
+                con.Close();
+            }
+            return ds;
         }
     }
 }

@@ -60,6 +60,14 @@ namespace Transnational.Repository.CreateOrder
             com.Parameters.AddWithValue("@BillingAddress", commnfun.SafeDbObject(OrderObj.BillingAddress));
             com.Parameters.AddWithValue("@CouponCode", commnfun.SafeDbObject(OrderObj.CouponCode));
             com.Parameters.AddWithValue("@CouponAmount", commnfun.SafeDbObject(OrderObj.CouponAmount));
+            if(OrderObj.rtrnTrip == "true")
+            {
+            com.Parameters.AddWithValue("@parentChild", commnfun.SafeDbObject("parent"));
+            }
+            else
+            {
+                com.Parameters.AddWithValue("@parentChild", commnfun.SafeDbObject("normal"));
+            }
             com.Parameters.AddWithValue("@rtrnTrip", commnfun.SafeDbObject(OrderObj.rtrnTrip)); //
             
             SqlParameter RuturnValue = new SqlParameter("@InvoiceId", SqlDbType.Int);
@@ -73,13 +81,12 @@ namespace Transnational.Repository.CreateOrder
             {
                 OrderCollectionAddress(OrderAddressObj, InvoiceId, con);
                 OrderDelleveryAddress(OrderDeliveryAddressObj, InvoiceId, con);
-                if ( OrderObj.parentChild != "child")
-                {
+              //  if ( OrderObj.parentChild != "child")
+              // {
                     foreach (var InvoiceVolumeObj in OrderObj.InvoiceVolumeObjList)
                     {
                         AddOrderVolume(InvoiceVolumeObj, InvoiceId, OrderObj.CD, con);
                     }
-
                     foreach (var MyCartObj in OrderObj.AddtoMyCartObjList)
                     {
                         AddOrderMyCart(MyCartObj, InvoiceId, OrderObj.CD, con);
@@ -92,7 +99,7 @@ namespace Transnational.Repository.CreateOrder
                     {
                         AddOrderSms(item.Mobile, item.SAddressType, InvoiceId, OrderObj.CD, con);
                     }
-                }
+                //}
                 con.Close();
                 return InvoiceId;
             }
@@ -370,6 +377,8 @@ namespace Transnational.Repository.CreateOrder
             com.Parameters.AddWithValue("@BillingAddress", commnfun.SafeDbObject(OrderObj.BillingAddress));
             com.Parameters.AddWithValue("@CouponCode", commnfun.SafeDbObject(OrderObj.CouponCode));
             com.Parameters.AddWithValue("@CouponAmount", commnfun.SafeDbObject(OrderObj.CouponAmount));
+            com.Parameters.AddWithValue("@parentChild", commnfun.SafeDbObject("child"));
+            com.Parameters.AddWithValue("@rtrnTrip", commnfun.SafeDbObject("false"));
             SqlParameter RuturnValue = new SqlParameter("@InvoiceId", SqlDbType.Int);
             RuturnValue.Direction = ParameterDirection.Output;
             com.Parameters.Add(RuturnValue);
@@ -652,15 +661,12 @@ namespace Transnational.Repository.CreateOrder
             {
                 con.Open();
                 da.Fill(ds);
-
                 if (ds.Tables[0].Rows.Count > 0)
                 {
                     DataRow dr = dt.NewRow();
                     dr["Order"] = ds;
                     dr["OrderValume"] = GetOrderVolumeByOrderId(GetOrderByOrderIdObj.CD, (int)GetOrderByOrderIdObj.InvoiceId);
                     dr["OrderProduct"] = GetMyCartByInvoiceId(GetOrderByOrderIdObj.CD, (int)GetOrderByOrderIdObj.InvoiceId);
-
-
                     dt.Rows.Add(dr);
                     // ds.Tables.Add(dt);
                     con.Close();

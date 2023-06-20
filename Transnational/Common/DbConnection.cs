@@ -35,7 +35,7 @@ namespace Transnational.Common
                 //            "MultipleActiveResultSets=True;" +
                 //            "App=EntityFramework;";
 
-
+                constr = constr + dbName;
                 con = new SqlConnection(constr);
 
                 return con;

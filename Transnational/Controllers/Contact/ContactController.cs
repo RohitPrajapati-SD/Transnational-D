@@ -640,7 +640,6 @@ namespace Transnational.Controllers.OTPController
                     response = response.Create(true, "Registered Successfully", result);
                     responseIHttpActionResult = new Converter().ApiResponseMessage<Object>(response, HttpStatusCode.OK);
                 }
-
                 else
                 {
                     response = response.Create(false, RespMessage.FormatMessage(RespMessage.Fail), result);

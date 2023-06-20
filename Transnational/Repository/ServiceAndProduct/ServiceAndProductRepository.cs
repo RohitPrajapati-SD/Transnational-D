@@ -93,7 +93,6 @@ namespace Transnational.Repository.ServiceAndProduct
             com.Parameters.AddWithValue("@ContactId", ServicesByContractConductionObj.ContactId);
             com.Parameters.AddWithValue("@CityIdFrom", ServicesByContractConductionObj.CityIdFrom);
             com.Parameters.AddWithValue("@CityIdTo", ServicesByContractConductionObj.CityIdTo);
-
             using (SqlDataAdapter da = new SqlDataAdapter(com))
             {
                 con.Open();
@@ -247,8 +246,6 @@ namespace Transnational.Repository.ServiceAndProduct
                 {
                     return true;
                 }
-
-
                 else
                 {
 

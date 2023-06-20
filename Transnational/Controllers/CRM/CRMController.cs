@@ -23,7 +23,6 @@ namespace Transnational.Controllers.CRM
         // private ITaskManagementService _iTaskService;
         private IHttpActionResult responseIHttpActionResult;
 
-
         [System.Web.Http.Route("api/CRM/GetAllAppVersion")]
         [System.Web.Http.HttpPost]
         [ResponseType(typeof(ResponseStatus<List<AppVersion>>))]
@@ -256,7 +255,6 @@ namespace Transnational.Controllers.CRM
                     response = response.Create(true, RespMessage.DataSuccess, ScreenImageobj);
                     responseIHttpActionResult = new Converter().ApiResponseMessage<List<ScreenImage>>(response, HttpStatusCode.OK);
                 }
-
                 else
                 {
                     response = response.Create(false, RespMessage.DataNotFound, ScreenImageobj);
@@ -536,7 +534,6 @@ namespace Transnational.Controllers.CRM
                 }
             }
 
-
             catch (Exception ex)
             {
                 response = response.Create(false, RespMessage.ServerError, result);
@@ -576,6 +573,57 @@ namespace Transnational.Controllers.CRM
             {
                 response = response.Create(false, RespMessage.ServerError, result);
                 responseIHttpActionResult = new Converter().ApiResponseMessage<Object>(response, HttpStatusCode.InternalServerError);
+            }
+            return responseIHttpActionResult;
+        }
+
+        //--------------------------------------------------GetAllCouponList---------------------------------------------------//---------
+
+        [System.Web.Http.Route("api/CRM/GetAllCouponList")]
+        [System.Web.Http.HttpPost]
+        [ResponseType(typeof(ResponseStatus<List<CouponlistDetail>>))]
+        public IHttpActionResult GetAllCouponList(CouponlistDetail CouponlistDetailObj)
+        {
+            DataSet ds = new DataSet();
+            ResponseStatus<List<CouponListMaster>> response = new ResponseStatus<List<CouponListMaster>>();
+            List<CouponListMaster> CouponListobj = new List<Models.CRM.CouponListMaster>();
+            try
+            {
+                ds = CRMRepositoryobj.GetAllCouponList(CouponlistDetailObj);
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow dr in ds.Tables[0].Rows)
+                    {
+                        var CouponListMasterObjItem = new CouponListMaster()
+                        {
+                            CouponName = (string)dr["CouponName"],
+                            CouponCode = (string)dr["CouponCode"],
+                            Amount = (float)dr["Amount"],
+                            AmountType = (string)dr["AmountType"],
+                            StartDate = (String)dr["StartDate"],
+                            EndDate = (String)dr["EndDate"],
+                            Status = (string)dr["Status"],
+                            CouponImage = (string)dr["CouponImage"],
+                            //CompanyId = (int)dr["CompanyId"],
+                            //ContactId = (int)dr["ContactId"]
+                        };
+                        
+                        CouponListobj.Add(CouponListMasterObjItem);
+                    }
+                    response = response.Create(true, RespMessage.DataSuccess, CouponListobj);
+                    responseIHttpActionResult = new Converter().ApiResponseMessage<List<CouponListMaster>>(response, HttpStatusCode.OK);
+                }
+                else
+                {
+                    response = response.Create(false, RespMessage.DataNotFound, CouponListobj);
+                    responseIHttpActionResult = new Converter().ApiResponseMessage<List<CouponListMaster>>(response, HttpStatusCode.InternalServerError);
+                }
+            }
+            catch (Exception ex)
+            {
+                response = response.Create(false, ex.ToString(), CouponListobj);
+                //response = response.Create(false, RespMessage.ServerError, Countrys);
+                //responseIHttpActionResult = new Converter().ApiResponseMessage<List<Countrys>>(response, HttpStatusCode.InternalServerError);
             }
             return responseIHttpActionResult;
         }

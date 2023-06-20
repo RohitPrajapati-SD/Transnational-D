@@ -222,6 +222,7 @@
     <Compile Include="Controllers\Contract\ContractController.cs" />
     <Compile Include="Controllers\Country\Departments.cs" />
     <Compile Include="Controllers\CreateOrder\CreateOrderController.cs" />
+    <Compile Include="Controllers\CRM\CouponList.cs" />
     <Compile Include="Controllers\CRM\CRMController.cs" />
     <Compile Include="Controllers\Customer\CustomerController.cs" />
     <Compile Include="Controllers\EmailVerification\EmailVerificationController.cs" />

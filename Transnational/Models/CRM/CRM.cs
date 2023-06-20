@@ -105,9 +105,6 @@ namespace Transnational.Models.CRM
         public string AlertEndTime { get; set; }
         public string AlertMessage { get; set; }
         public string Status { get; set; }
-
-
-
     }
     public class UserDevice
     {
@@ -129,4 +126,27 @@ namespace Transnational.Models.CRM
         public string CD { get; set; }
         public string CouponCode { get; set; }
     }
+
+    /*GetAllCouponLis*/
+    public class CouponListMaster
+    {
+        public string CouponCode { get; set; }
+        public string CouponName { get; set; }
+        public float Amount { get; set; }
+        public string AmountType { get; set; }
+        public String StartDate { get; set; }
+        public String EndDate { get; set; }
+        public string Status { get; set; }
+        public string CouponImage { get; set; }
+       //public int CompanyId { get; set; }
+        //public int ContactId { get; set; }
+    }
+    public class CouponlistDetail
+    {
+        public string CD { get; set; }
+    }
 }
+      
+
+
+

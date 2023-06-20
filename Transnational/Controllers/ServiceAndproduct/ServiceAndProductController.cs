@@ -176,7 +176,6 @@ namespace Transnational.Controllers.ServiceAndproduct
             List<ServicesByContract> ServicesByContractObj = new List<Models.ServiceAndProduct.ServicesByContract>();
             try
             {
-
                 ds = ServiceAndProductRepositoryObj.GetServicesByContract(ServicesByContractConductionObj);
                 if (ds.Tables[0].Rows.Count > 0)
                 {
@@ -185,7 +184,6 @@ namespace Transnational.Controllers.ServiceAndproduct
 
                         Object NewPriceN = dr["NewPriceRateMatrix"];
                         Object NewPrice1 = dr["NewPrice"];
-                       
 
                         if (Convert.ToDouble(NewPriceN) > 0)
                         {
@@ -226,7 +224,6 @@ namespace Transnational.Controllers.ServiceAndproduct
                 responseIHttpActionResult = new Converter().ApiResponseMessage<List<ServicesByContract>>(response, HttpStatusCode.InternalServerError);
             }
             return responseIHttpActionResult;
-
         }
         [System.Web.Http.Route("api/ServiceAndProduct/GetAllProduct")]
         [System.Web.Http.HttpPost]
@@ -274,8 +271,6 @@ namespace Transnational.Controllers.ServiceAndproduct
                             ProductAnnouncementDescription = (string)dr["ProductAnnouncementDescription"],
                             AccessRight = (string)dr["AccessRight"],
                             //ProductAnnounceMentImage = (string)dr["ProductAnnounceMentImage"],
-
-
                         };
                         ProductObj.Add(ProductObjItem);
                     }
@@ -524,8 +519,6 @@ namespace Transnational.Controllers.ServiceAndproduct
                     response = response.Create(true, RespMessage.DataSuccess, ProductRatingObj);
                     responseIHttpActionResult = new Converter().ApiResponseMessage<List<ProductRating>>(response, HttpStatusCode.OK);
                 }
-
-
                 else
                 {
                     response = response.Create(true, RespMessage.DataNotFound, ProductRatingObj);
@@ -610,15 +603,12 @@ namespace Transnational.Controllers.ServiceAndproduct
                     response = response.Create(true, "Data Fatch Successfully", result);
                     responseIHttpActionResult = new Converter().ApiResponseMessage<Object>(response, HttpStatusCode.OK);
                 }
-
                 else
                 {
                     response = response.Create(false, RespMessage.FormatMessage(RespMessage.Fail), result);
                     responseIHttpActionResult = new Converter().ApiResponseMessage<Object>(response, HttpStatusCode.OK);
                 }
             }
-
-
             catch (Exception ex)
             {
                 response = response.Create(false, RespMessage.ServerError, result);
